@@ -36,3 +36,13 @@
       -ms-transform: rotate(-45deg);
       transform: rotate(-45deg);
 }
+
+.tooltip.error {
+      background: brown;
+      color: white;
+}
+
+.tooltip.error span {
+      border-right: 1px solid brown;
+      border-top: 1px solid brown;
+}

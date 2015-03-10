@@ -1,69 +1,94 @@
 var Utils = Utils || {};
 
-Utils.Tooltip = function (el) {
+(function () {
+
 	'use strict';
 
-	this.el = el;
+	Utils.Tooltip = function (el) {
+		if (el) {
+			this.el = el;
 
-	this.buildDOM();
-	this.attachEvents();
-};
+			this.buildDOM();
+			this.attachEvents();
+		}
+	};
 
-Utils.Tooltip.prototype.attachEvents = function() {
-	'use strict';
+	Utils.Tooltip.prototype.attachEvents = function () {
+		var el = this.el,
+			that = this;
 
-	var el = this.el,
-		tooltip = this.tooltip,
-		tipText = tooltip.getElementsByTagName('p')[0];
+		el.addEventListener('focus', function () {
+			that.showTooltip.call(that);
+		});
+		el.addEventListener('blur', function () {
+			that.hideTooltip.call(that);
+		});
+	};
 
-	function showTooltip () {
-		tooltip.style.left = el.offsetLeft+ 'px';
-		tooltip.style.top = el.offsetTop + el.offsetHeight + 7 + 'px';
-		tooltip.style.display = 'block';
+	Utils.Tooltip.prototype.showTooltip = function () {
+		this.tooltip.style.left = this.el.offsetLeft+ 'px';
+		this.tooltip.style.top = this.el.offsetTop + this.el.offsetHeight + 7 + 'px';
+		this.tooltip.style.display = 'block';
 
-		tipText.innerHTML = el.title;
-	}
+		var tipText = this.tooltip.getElementsByTagName('p')[0];
+		tipText.innerHTML = this.el.title;
+	};
 
-	function hideTooltip () {
-		tooltip.style.display = 'none';
-	}
+	Utils.Tooltip.prototype.hideTooltip = function () {
+		this.tooltip.style.display = 'none';
+	};
 
-	el.addEventListener('focus', showTooltip);
-	el.addEventListener('blur', hideTooltip);
-};
+	Utils.Tooltip.prototype.buildDOM = function () {
+		var theTooltip = document.getElementById('tooltip'),
+			body = document.getElementsByTagName('body')[0],
+			tipText,
+			tipArrow;
 
-Utils.Tooltip.prototype.buildDOM = function () {
-	'use strict';
+		if (!theTooltip) {
+			theTooltip = document.createElement('div');
+			theTooltip.id = 'tooltip';
+			theTooltip.className = 'tooltip';
 
-	var theTooltip = document.getElementById('tooltip'),
-		body = document.getElementsByTagName('body')[0],
-		tipText,
-		tipArrow;
+			tipArrow = document.createElement('span');
+			tipText = document.createElement('p');
 
-	if (!theTooltip) {
-		theTooltip = document.createElement('div');
-		theTooltip.id = 'tooltip';
-		theTooltip.className = 'tooltip';
+			body.appendChild(theTooltip);
+			theTooltip.appendChild(tipText);
+			theTooltip.appendChild(tipArrow);
+		}
 
-		tipArrow = document.createElement('span');
-		tipText = document.createElement('p');
+		this.tooltip = theTooltip;
 
-		body.appendChild(theTooltip);
-		theTooltip.appendChild(tipText);
-		theTooltip.appendChild(tipArrow);
-	}
+		return;
+	};
 
-	this.tooltip = theTooltip;
+	Utils.ErrorTooltip = function (el) {
+		Utils.Tooltip.call(this, el); // super
+	};
 
-	return;
-};
+	Utils.ErrorTooltip.prototype = new Utils.Tooltip();
+
+	Utils.ErrorTooltip.prototype.showTooltip = function () {
+		Utils.Tooltip.prototype.showTooltip.call(this);
+		this.tooltip.className = this.tooltip.className + ' error';
+	};
+
+	Utils.ErrorTooltip.prototype.hideTooltip = function () {
+		this.tooltip.className = this.tooltip.className.replace('error', '');
+		Utils.Tooltip.prototype.hideTooltip.call(this);
+	};
+})();
 
 window.addEventListener('load', function () {
 	'use strict';
 
 	var inputs = document.getElementsByClassName('showTooltip');
-
 	Array.prototype.forEach.call(inputs, function (key) {
 		new Utils.Tooltip(key);
+	});
+
+	var errorInputs = document.getElementsByClassName('showErrorTooltip');
+	Array.prototype.forEach.call(errorInputs, function (key) {
+		new Utils.ErrorTooltip(key);
 	});
 });
