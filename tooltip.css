@@ -1,33 +1,38 @@
 .tooltip {
+      display: none;
       position: absolute;
+
       width: 150px;
+      padding: 5px 10px;
+
+      border-radius: 3px;
+      box-shadow: 2px 2px 2px #999;
       background-color: #ddd;
       font-size: .8em;
-      box-shadow: 2px 2px 2px #999;
-      border-radius: 3px;
-      padding: 5px 10px;
-      display: none;
 }
 
 .tooltip p {
-      margin: 0;
       position: relative;
       z-index: 1;
+
+      margin: 0;
 }
 
 .tooltip span {
-      background: inherit;
+      position: absolute;
+      left: 0;
+      top: 17px;
+
+      width: 15px;
+      height: 15px;
       border-right: 1px solid #ddd;
       border-top: 1px solid #ddd;
-      height: 15px;
-      left: 0;
       margin-left: 20px;
       margin-top: -19px;
-      position: absolute;
-      top: 17px;
-      transform: rotate(-45deg);
+ 
+      background: inherit;
       -webkit-transform: rotate(-45deg);
       -moz-transform: rotate(-45deg);
       -ms-transform: rotate(-45deg);
-      width: 15px;
+      transform: rotate(-45deg);
 }
