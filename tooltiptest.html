@@ -4,13 +4,25 @@
 	<head>
 		<title>Tooltip test page</title>
 		<link rel="stylesheet" type="text/css" href="tooltip.css">
+
+		<style>
+			.text2 {
+				width: 300px;
+			}
+
+			.text3 {
+				position: absolute;
+				left: 200px;
+				top: 200px;
+			}
+		</style>
 	</head>
 
 	<body style="font-family: arial">
 
-		<input id="mytext1" class="showTooltip" title="I have a tooltip" />
-		<input id="mytext2" class="showTooltip" style="width: 300px;" title="I have a tooltip too"  />
-		<input id="mydate3" class="showTooltip" style="position: absolute; left: 200px; top: 200px;" title="I have the best tooltip of all!"  />
+		<input class="showTooltip" title="I have a tooltip" />
+		<input class="showTooltip text2" style="width: 300px;" title="I have a tooltip too"  />
+		<input class="showTooltip text3" title="I have the best tooltip of all!"  />
 
 		<script src="tooltip.js"></script>
 
