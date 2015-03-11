@@ -20,17 +20,20 @@
 		el.addEventListener('focus', function () {
 			that.showTooltip.call(that);
 		});
+
 		el.addEventListener('blur', function () {
 			that.hideTooltip.call(that);
 		});
 	};
 
 	Utils.Tooltip.prototype.showTooltip = function () {
+		var tipText;
+
 		this.tooltip.style.left = this.el.offsetLeft+ 'px';
 		this.tooltip.style.top = this.el.offsetTop + this.el.offsetHeight + 7 + 'px';
 		this.tooltip.style.display = 'block';
 
-		var tipText = this.tooltip.getElementsByTagName('p')[0];
+		tipText = this.tooltip.getElementsByTagName('p')[0];
 		tipText.innerHTML = this.el.title;
 	};
 
@@ -79,12 +82,13 @@
 	};
 
 	window.addEventListener('load', function () {
-		var inputs = document.getElementsByClassName('showTooltip');
+		var inputs = document.getElementsByClassName('showTooltip'),
+			errorInputs = document.getElementsByClassName('showErrorTooltip');
+
 		Array.prototype.forEach.call(inputs, function (key) {
 			new Utils.Tooltip(key);
 		});
 
-		var errorInputs = document.getElementsByClassName('showErrorTooltip');
 		Array.prototype.forEach.call(errorInputs, function (key) {
 			new Utils.ErrorTooltip(key);
 		});

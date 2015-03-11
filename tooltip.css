@@ -7,8 +7,9 @@
 
       border-radius: 3px;
       box-shadow: 2px 2px 2px #999;
-      background-color: #ddd;
+      background-color: #AEC6CF;
       font-size: .8em;
+      color: #000;
 }
 
 .tooltip p {
@@ -25,8 +26,8 @@
 
       width: 15px;
       height: 15px;
-      border-right: 1px solid #ddd;
-      border-top: 1px solid #ddd;
+      border-right: 1px solid #AEC6CF;
+      border-top: 1px solid #AEC6CF;
       margin-left: 20px;
       margin-top: -19px;
  
@@ -39,7 +40,7 @@
 
 .tooltip.error {
       background: brown;
-      color: white;
+      color: #fff;
 }
 
 .tooltip.error span {
