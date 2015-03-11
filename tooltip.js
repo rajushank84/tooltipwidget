@@ -1,8 +1,8 @@
-var Utils = Utils || {};
-
 (function () {
 
 	'use strict';
+
+	var Utils = Utils || {};
 
 	Utils.Tooltip = function (el) {
 		if (el) {
@@ -77,18 +77,16 @@ var Utils = Utils || {};
 		this.tooltip.className = this.tooltip.className.replace('error', '');
 		Utils.Tooltip.prototype.hideTooltip.call(this);
 	};
+
+	window.addEventListener('load', function () {
+		var inputs = document.getElementsByClassName('showTooltip');
+		Array.prototype.forEach.call(inputs, function (key) {
+			new Utils.Tooltip(key);
+		});
+
+		var errorInputs = document.getElementsByClassName('showErrorTooltip');
+		Array.prototype.forEach.call(errorInputs, function (key) {
+			new Utils.ErrorTooltip(key);
+		});
+	});
 })();
-
-window.addEventListener('load', function () {
-	'use strict';
-
-	var inputs = document.getElementsByClassName('showTooltip');
-	Array.prototype.forEach.call(inputs, function (key) {
-		new Utils.Tooltip(key);
-	});
-
-	var errorInputs = document.getElementsByClassName('showErrorTooltip');
-	Array.prototype.forEach.call(errorInputs, function (key) {
-		new Utils.ErrorTooltip(key);
-	});
-});
